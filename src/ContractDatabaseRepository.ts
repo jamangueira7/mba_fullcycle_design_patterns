@@ -1,29 +1,46 @@
-import mysql from "mysql2/promise";
+
 import ContractRepository from "./ContractRepository";
+import DatabaseConnection from "./DatabaseConnection";
+import Contract from "./Contract";
+import Payment from "./Payment";
 
 export default class ContractDatabaseRepository implements ContractRepository {
-    async list(): Promise<any> {
-        const con = await mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            port: 3306,
-            password: "",
-            database: "branas",
-            jsonStrings: true
-        });
 
-        const [contracts, fields] = await con.query(
-            'select * from contract', []
+    constructor(readonly connection: DatabaseConnection) {
+    }
+    async list(): Promise<Contract[]> {
+
+        const contracts: Contract[] = [];
+        await this.connection.connect();
+        const [contractsData, fields] = await this.connection.query(
+            "select * from branas.contract",
+            []
         );
 
         // @ts-ignore
-        for (const contract of contracts) {
+        for (const contractData of contractsData) {
+            const contract = new Contract(
+                contractData.id_contract,
+                contractData.description,
+                parseFloat(contractData.amount),
+                contractData.periods,
+                contractData.date,
 
-            const [payments, fields] = await con.query(
-                'select * from payment where id_contract = ?', [contract.id_contract]
+            );
+            const [paymentsData, fields] = await this.connection.query(
+                'select * from payment where id_contract = ?',
+                [contract.idContract]
             );
 
-            contract.payments = payments;
+            for (const paymentData of paymentsData) {
+                contract.addPayment(new Payment(
+                    paymentData.id_payment,
+                    parseFloat(paymentData.amount),
+                    paymentData.date,
+                ));
+            }
+            // @ts-ignore
+            contracts.push(contract);
         }
 
         return contracts;
