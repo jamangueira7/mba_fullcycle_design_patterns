@@ -2,6 +2,7 @@ import moment, {months} from "moment";
 import Presenter from "./Presenter";
 import JsonPresenter from "./JsonPresenter";
 import ContractRepository from "./ContractRepository";
+import UseCase from "./UseCase";
 
 type Input = {
     month: number,
@@ -13,7 +14,7 @@ export type Output = {
     date: Date,
     amount: number,
 }
-export default class GenerateInvoices {
+export default class GenerateInvoices implements UseCase {
 
     constructor(
         readonly contractRepository: ContractRepository,
