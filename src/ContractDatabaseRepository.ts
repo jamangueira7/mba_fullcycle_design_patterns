@@ -24,8 +24,7 @@ export default class ContractDatabaseRepository implements ContractRepository {
                 contractData.description,
                 parseFloat(contractData.amount),
                 contractData.periods,
-                contractData.date,
-
+                contractData.date
             );
             const [paymentsData, fields] = await this.connection.query(
                 'select * from payment where id_contract = ?',
