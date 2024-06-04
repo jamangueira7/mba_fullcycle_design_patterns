@@ -1,5 +1,5 @@
-import mysql from 'mysql2/promise';
 import moment from "moment";
+import ContractDatabaseRepository from "./ContractDatabaseRepository";
 
 type Input = {
     month: number,
@@ -13,28 +13,15 @@ type Output = {
 }
 export default class GenerateInvoices {
     async execute(input: Input): Promise<Output[]> {
-        const con = await mysql.createConnection({
-            host: "localhost",
-            user: "root",
-            port: 3306,
-            password: "",
-            database: "branas",
-            jsonStrings: true
-        });
+
 
         const output: Output[] = [];
-
-        const [contracts, fields]  = await con.query(
-            'select * from contract', []
-        );
-
-        // @ts-ignore
+        const contractRepository = new ContractDatabaseRepository();
+        const contracts = await contractRepository.list();
         for (const contract of contracts) {
             if(input.type === "cash") {
-                const [payments, fields] = await con.query(
-                    'select * from payment where id_contract = ?', [contract.id_contract]
-                );
-                for (const payment of payments) {
+
+                for (const payment of contract.payments) {
                     if(payment.date.getMonth() + 1 !== input.month || payment.date.getFullYear() !== input.year) continue;
                     output.push({
                         date: moment(payment.date).format("YYYY-MM-DD"),
@@ -44,9 +31,6 @@ export default class GenerateInvoices {
             }
 
             if(input.type === "accrual") {
-                const [payments, fields] = await con.query(
-                    'select * from payment where id_contract = ?', [contract.id_contract]
-                );
                 let period = 0;
                 while (period <= contract.periods) {
                     const date = moment(contract.date).add(period++, 'months').toDate();
@@ -59,8 +43,8 @@ export default class GenerateInvoices {
                     })
                 }
             }
-
         }
+
         return output;
     }
 }
