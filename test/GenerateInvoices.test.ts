@@ -1,9 +1,9 @@
-import GenerateInvoices from "../src/GenerateInvoices";
-import ContractRepository from "../src/ContractRepository";
-import ContractDatabaseRepository from "../src/ContractDatabaseRepository";
-import MySQLPromiseAdapter from "../src/MySQLPromiseAdapter";
-import DatabaseConnection from "../src/DatabaseConnection";
-import CsvPresenter from "../src/CsvPresenter";
+import GenerateInvoices from "../src/application/usecase/GenerateInvoices";
+import ContractRepository from "../src/application/repository/ContractRepository";
+import ContractDatabaseRepository from "../src/domain/repository/ContractDatabaseRepository";
+import MySQLPromiseAdapter from "../src/infra/database/MySQLPromiseAdapter";
+import DatabaseConnection from "../src/infra/database/DatabaseConnection";
+import CsvPresenter from "../src/infra/presenter/CsvPresenter";
 
 let generateInvoices: GenerateInvoices;
 let connection: DatabaseConnection;

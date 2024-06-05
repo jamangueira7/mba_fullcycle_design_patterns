@@ -1,6 +1,5 @@
-import Contract from "../src/Contract";
-import AccrualBasisStrategy from "../src/AccrualBasisStrategy";
-import Payment from "../src/Payment";
+import Contract from "../src/domain/Contract";
+import Payment from "../src/domain/Payment";
 
 test("Deve calcular o saldo do contrato", async function () {
 

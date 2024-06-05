@@ -1,7 +1,8 @@
 import moment from "moment";
-import InvoiceGenerationsStrategy from "./InvoiceGenerationsStrategy";
-import Contract from "./Contract";
+
 import Invoice from "./Invoice";
+import Contract from "./Contract";
+import InvoiceGenerationsStrategy from "./InvoiceGenerationsStrategy";
 
 export default class AccrualBasisStrategy implements InvoiceGenerationsStrategy {
     generate(contract: Contract, month: number, year: number): Invoice[] {

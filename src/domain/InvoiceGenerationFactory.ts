@@ -1,6 +1,7 @@
 import CashBasisStrategy from "./CashBasisStrategy";
 import AccrualBasisStrategy from "./AccrualBasisStrategy";
 
+
 export default class InvoiceGenerationFactory {
     static create (type: string) {
         if (type === "cash") {

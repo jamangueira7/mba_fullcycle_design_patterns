@@ -1,4 +1,4 @@
-import UseCase from "./UseCase";
+import UseCase from "../../application/usecase/UseCase";
 import HttpServer from "./HttpServer";
 
 export default class MainController {

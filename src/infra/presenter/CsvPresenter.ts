@@ -1,5 +1,5 @@
-import Presenter from "./Presenter";
-import {Output} from "./GenerateInvoices";
+import Presenter from "../../application/presenter/Presenter";
+import {Output} from "../../application/usecase/GenerateInvoices";
 import moment from "moment";
 
 export default class CsvPresenter implements Presenter{

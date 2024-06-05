@@ -1,10 +1,10 @@
-import MySQLPromiseAdapter from "./MySQLPromiseAdapter";
-import ContractDatabaseRepository from "./ContractDatabaseRepository";
-import LoggerDecorator from "./LoggerDecorator";
-import GenerateInvoices from "./GenerateInvoices";
-import JsonPresenter from "./JsonPresenter";
-import ExpressAdapter from "./ExpressAdapter";
-import MainController from "./MainController";
+import MySQLPromiseAdapter from "./infra/database/MySQLPromiseAdapter";
+import ContractDatabaseRepository from "./domain/repository/ContractDatabaseRepository";
+import LoggerDecorator from "./application/decorator/LoggerDecorator";
+import GenerateInvoices from "./application/usecase/GenerateInvoices";
+import JsonPresenter from "./infra/presenter/JsonPresenter";
+import ExpressAdapter from "./infra/http/ExpressAdapter";
+import MainController from "./infra/http/MainController";
 
 const connection = new MySQLPromiseAdapter();
 const contractRepository = new ContractDatabaseRepository(connection)

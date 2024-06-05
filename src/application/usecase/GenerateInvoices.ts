@@ -1,7 +1,7 @@
 import moment, {months} from "moment";
-import Presenter from "./Presenter";
-import JsonPresenter from "./JsonPresenter";
-import ContractRepository from "./ContractRepository";
+import Presenter from "../presenter/Presenter";
+import JsonPresenter from "../../infra/presenter/JsonPresenter";
+import ContractRepository from "../repository/ContractRepository";
 import UseCase from "./UseCase";
 
 type Input = {
